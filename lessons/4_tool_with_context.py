@@ -10,7 +10,6 @@ class CityLocation(BaseModel):
 class Olympic(BaseModel):
     year: int
     location: CityLocation
-    dominant_country: str
 
 
 agent = Agent("openai:gpt-4o", result_type=Olympic)
@@ -22,5 +21,6 @@ def decide_held_year(ctx: RunContext[str]) -> int:
     return ctx.deps
 
 
-result = agent.run_sync("show me the olympics year and location", deps="I wanna know about 2024 olympics")
+prompt = "2025 this year, I wanna know about latest olympics"
+result = agent.run_sync(prompt)
 print(result.data)
